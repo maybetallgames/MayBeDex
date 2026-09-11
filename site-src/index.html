@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="MayBeDex — searchable Synty prefab catalog for MayBeTall Games.">
+  <meta name="description" content="MayBeDex — searchable prefab metadata catalog for MayBeTall Games.">
   <title>MayBeDex</title>
   <link rel="stylesheet" href="./assets/styles.css">
 </head>
@@ -12,11 +12,12 @@
     <div>
       <p class="eyebrow">MayBeTall Games</p>
       <h1>MayBeDex</h1>
-      <p class="lede">Searchable Synty prefab previews with stable Unity GUID links and machine-readable catalog endpoints.</p>
+      <p class="lede">Search Synty prefab metadata by name, pack, type, component, path, and Unity GUID without loading the private project or image library.</p>
     </div>
     <div class="endpoint-links">
       <a href="./catalog.tsv">catalog.tsv</a>
       <a href="./catalog.json">catalog.json</a>
+      <a href="./packs/index.json">packs</a>
       <a href="./version.json">version.json</a>
     </div>
   </header>
@@ -48,7 +49,7 @@
   <template id="card-template">
     <article class="card">
       <a class="thumb-link">
-        <div class="thumb-shell"><img class="thumb" loading="lazy" decoding="async" alt=""></div>
+        <div class="thumb-shell"><span class="type-mark"></span></div>
         <div class="card-body">
           <h2 class="name"></h2>
           <div class="badges"><span class="kind"></span><span class="pack"></span></div>
