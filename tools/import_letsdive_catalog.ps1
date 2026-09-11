@@ -15,7 +15,7 @@ if (-not (Test-Path $source)) {
 New-Item -ItemType Directory -Force -Path $destination | Out-Null
 
 $required = @('_lookup.tsv')
-$optional = @('_catalog.json')
+$optional = @('_catalog_info.json')
 
 foreach ($name in $required) {
     $sourceFile = Join-Path $source $name
@@ -37,5 +37,5 @@ foreach ($name in $optional) {
 
 Write-Host ''
 Write-Host 'MayBeDex metadata import complete.'
-Write-Host 'No Synty preview images or base64 image sidecars were copied.'
+Write-Host 'Only lookup/catalog metadata was copied. No prefab preview images or image sidecars were copied.'
 Write-Host 'Next: review git diff, commit, and push.'
