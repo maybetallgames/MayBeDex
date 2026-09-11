@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the public MayBeDex metadata catalog from LetsDive's Synty lookup TSV.
+"""Build the public MayBeDex metadata catalog from LetsDive's prefab lookup TSV.
 
-Important: this public build intentionally does NOT publish Synty preview images.
-The current SyntyPass licence prohibits use of the assets in datasets utilised
-by generative AI programs. MayBeDex therefore exposes only text metadata useful
-for finding the exact prefab/pack/path. High-quality renders stay local/private.
+MayBeDex is intentionally metadata-only. It exists so ChatGPT and developers can
+find the exact existing prefab, pack, GUID, path, and useful component information
+before wiring that prefab into the private Unity project. Preview images stay out
+of this public catalog.
 """
 
 from __future__ import annotations
@@ -158,7 +158,7 @@ def prefab_page(item: Dict[str, object]) -> str:
     <nav class="prefab-nav"><a href="../../">← MayBeDex</a> · <a href="../../packs/{slug(str(item['pack']))}.json">pack JSON</a></nav>
     <p class="eyebrow">{pack} · {kind}</p>
     <h1>{name}</h1>
-    <p class="lede">Text metadata only. Synty preview renders are intentionally not published in this public AI-searchable catalog.</p>
+    <p class="lede">Metadata for locating and wiring this existing prefab into the Unity project.</p>
     <dl class="meta">
       <dt>Unity GUID</dt><dd><code>{guid}</code></dd>
       <dt>Pack</dt><dd>{pack}</dd>
@@ -203,7 +203,7 @@ def build() -> None:
     write_json(SITE / "packs" / "index.json", pack_index)
 
     source_info = {}
-    source_info_path = SOURCE / "_catalog.json"
+    source_info_path = SOURCE / "_catalog_info.json"
     if source_info_path.is_file():
         try:
             source_info = json.loads(source_info_path.read_text(encoding="utf-8"))
@@ -216,7 +216,7 @@ def build() -> None:
         "packCount": len(by_pack),
         "baseUrl": BASE_URL,
         "sourceRevision": os.environ.get("GITHUB_SHA", "local"),
-        "imagePolicy": "metadata-only",
+        "catalogMode": "metadata-only",
         "unityCatalog": source_info,
     }
     write_json(SITE / "version.json", version)
@@ -227,7 +227,7 @@ def build() -> None:
     sitemap += "</urlset>\n"
     (SITE / "sitemap.xml").write_text(sitemap, encoding="utf-8")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n", encoding="utf-8")
-    print(f"Built MayBeDex: {len(entries)} prefabs across {len(by_pack)} packs (metadata-only public build)")
+    print(f"Built MayBeDex: {len(entries)} prefabs across {len(by_pack)} packs (metadata-only)")
 
 
 if __name__ == "__main__":
