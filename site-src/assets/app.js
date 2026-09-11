@@ -45,12 +45,8 @@
     const fragment = document.createDocumentFragment();
     for (const item of shown) {
       const node = template.content.cloneNode(true);
-      const link = node.querySelector('.thumb-link');
-      const image = node.querySelector('.thumb');
-      link.href = `./${item.page}`;
-      image.src = item.thumbnail ? `./${item.thumbnail}` : (item.image ? `./${item.image}` : '');
-      image.alt = `${item.name} prefab preview`;
-      image.hidden = !image.src;
+      node.querySelector('.thumb-link').href = `./${item.page}`;
+      node.querySelector('.type-mark').textContent = (item.kind || 'prefab').toUpperCase();
       node.querySelector('.name').textContent = item.name;
       node.querySelector('.kind').textContent = item.kind || 'prefab';
       node.querySelector('.pack').textContent = item.pack || 'Unknown pack';
